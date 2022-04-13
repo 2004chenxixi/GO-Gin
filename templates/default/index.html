@@ -1,0 +1,60 @@
+{{ define "default/index.html" }}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+    <h2>{{.title}}</h2>
+
+    <!--定义变量-->
+    {{ $t := .title }}
+    <h4>
+        {{$t}}
+    </h4>
+
+    <!--条件判断-->
+    <!--比较;搜索二元比较运算合集-->
+    {{if ge .score 60}}
+        <p>及格</p>
+    {{else}}
+        <p>不及格</p>
+    {{end}}
+
+
+    <!--fange循环遍历数据-->
+    <a>
+        {{range $k ,$v := .beautiful}}
+            <li> {{$k}}-----{{$v}}</li>
+        {{end}}
+    </a>
+
+
+    <!--便利一个结构体-->
+    <a>
+        {{range $k ,$v := .criminalSlice}}
+            <li> {{$k}}-----{{$v.Person}}</li>
+        {{end}}
+    </a>
+
+    <br>
+
+    {{range $k ,$v := .randomSlice}}
+        <li> {{$k}}-----{{$v}}</li>
+    {{else}}
+        <S>没有任何东西</S>
+    {{end}}
+
+    <br>
+    <!--with解构结构体-->
+    <!--把结构体名字先赋给一个点.-->
+    {{with .new}}
+        <p>{{.Person}}</p>
+        <p>{{.Gender}}</p>
+    {{end}}
+
+    </body>
+    </html>
+{{ end }}

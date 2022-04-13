@@ -1,0 +1,24 @@
+{{ define "default/news.html" }}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+    <h2>{{.title}}</h2>
+    <!--这个{{.xxxx}}这里的xxx是你main.go中的写的文件-&#45;&#45;&ndash;&gt;进行文件传输(互传)-->
+
+    <p>
+        {{.news.Person}}
+    </p>
+
+    <p>
+        {{.news.Gender}}
+    </p>
+
+
+    </body>
+    </html>
+{{ end }}

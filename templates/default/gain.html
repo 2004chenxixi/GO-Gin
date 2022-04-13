@@ -1,0 +1,26 @@
+{{ define "default/gain.html" }}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        {{/*    这个是静态配置*/}}
+        <link rel="stylesheet" href="/static/css/base.css">
+        {{/*    r.Static("/xxx", "./static")*/}}
+    </head>
+    <body>
+    {{template "public/page-head.html" .}}
+    {{/*这个是在外面的public，+template+路径*/}}
+
+    {{/*    尽量名字都一样,这个可以导入图片*/}}
+    <img src="/static/images/view.jpg" alt="">
+
+    {{Println .Chen .Cheng}}
+    <!--预定义函数,查百度-->
+    <!--自定义函数-->
+
+    {{template "public/page-foot.html" .}}
+    {{/*这个是在外面的public，+template+路径*/}}
+    </body>
+    </html>
+{{end}}

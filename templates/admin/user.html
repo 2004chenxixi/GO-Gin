@@ -1,0 +1,26 @@
+{{define "admin/user.html"}}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        {{template "public/page-headPost.html" .}}
+    </head>
+    {{/*    只要有/doAddUser2，就等于有了一个钥匙，用POS可以用下面这些*/}}
+    {{/*    引用user.html可以有输入：用户名，密码，年龄*/}}
+    {{/*    但是有action的密码，可以被POST接受，就可以把上面输入的东西给导出*/}}
+    <form action="/doAddUser2" method="post">
+        用户名 <input type="text" name="username"/><br><br>
+        密码<input type="text" name="password"/><br><br>
+        年龄<input type="text" name="age"/><br><br>
+        <input type="submit" value="提交">
+    </form>
+
+
+    </body>
+    </html>
+
+
+
+
+{{end}}
