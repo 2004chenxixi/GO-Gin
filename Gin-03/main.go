@@ -15,6 +15,7 @@ func main() {
 	r.LoadHTMLGlob("templates/**/*")
 
 	r.GET("/", func(context *gin.Context) {
+
 		context.HTML(http.StatusOK, "default/index.html", gin.H{
 			"title": "首页",
 

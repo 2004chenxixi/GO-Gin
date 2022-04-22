@@ -1,0 +1,37 @@
+{{ define  "default/num-One.html"}}
+    <!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/html">
+    <head>
+        <title>HTML</title>
+    </head>
+
+    <body>
+    <h1>欢迎填报</h1>
+    <p><em>如果你没有账号，点击这里</em><a href="http://localhost:8080/exchange" target="_blank">注册</a></p>
+    <br>
+    <form action="/User" method="post" enctype="multipart/form-data">
+        账号<input type="text" name="account"/><br><br>
+        密码<input type="text" name="password"/><a href="http://localhost:8080/changePassword" target="_blank">忘记密码?</a>
+        <br><br>
+        照片<input type="file" name="face"/><br><br>
+        <input type="submit" value="提交">
+    </form>
+
+
+    </body>
+    <hr>
+    <br>
+
+    <br>
+
+    {{/*    <img src="picture/view.jpeg" alt="图片输入错误">*/}}
+    <blockquote>如果有任何技术问题，可以质询XXXXXXX</blockquote>
+
+    <blockquote><abbr title="自己查百度">修复BUG</abbr>,如果出现BUG</blockquote>
+
+    </html>
+
+
+
+    <br>
+{{end}}

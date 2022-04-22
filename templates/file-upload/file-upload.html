@@ -1,0 +1,30 @@
+{{define "file-upload/file-upload.html"}}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+    <h2>
+        文件上传案例--file-upload
+    </h2>
+    {{/*这里enctype="multipart/form-data"----才可以使文件上传到post*/}}
+    <form action="file-upload/file-upload.html" method="post" enctype="multipart/form-data">
+        用户名:<input type="text" name="username" placeholder="请输入用户名"/>
+        <br>
+        <br>
+        头像1<input type="file" name="face[]" placeholder="请传入照片"/>
+        <br>
+        <br>
+        头像2<input type="file" name="face[]" placeholder="请传入照片"/>
+        <br>
+        <br>
+        头像3<input type="file" name="face[]" placeholder="请传入照片"/>
+        <br>
+        <br>
+        <input type="submit" value="提交">
+    </form>
+    </body>
+    </html>
+{{end}}

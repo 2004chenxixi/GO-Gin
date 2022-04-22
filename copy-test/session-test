@@ -1,0 +1,19 @@
+
+1.import (
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie")
+
+2.	r := gin.Default()
+    	//配置session的中间件
+    	store := cookie.NewStore([]byte("secret"))   //创建基于cookie的储存引擎，secret是参数用于加密的密钥
+    	r.Use(sessions.Sessions("mysession", store)) //配置session的中间件，store是存储引擎也可以替换
+
+    	//输入需要传的值
+    	3.session := sessions.Default(c)
+          		session.Set("username","我是session的test")
+          		session.Save()  //设置session时候必须调用
+
+          		4.//获取session
+                  		session := sessions.Default(c)
+                  		username := session.Get("username")
+                  		c.String(http.StatusOK, "username",username)

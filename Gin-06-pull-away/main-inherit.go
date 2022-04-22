@@ -9,6 +9,7 @@ import (
 
 func main() {
 	r := gin.Default()
+	r.LoadHTMLGlob("templates/**/*")
 
 	Routers.ApiRouters(r)
 	Routers.AdminRouters(r)

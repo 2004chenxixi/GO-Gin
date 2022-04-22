@@ -21,6 +21,11 @@ func AdminRouters(r *gin.Engine) {
 		//	})
 		//})
 		adminRouters.GET("/password", admin.UserController{}.Password)
+
 		adminRouters.GET("/age", admin.UserController{}.Age)
+		adminRouters.POST("file-upload/file-upload.html", admin.UserController{}.DoUpload)
+
+		adminRouters.GET("/gender", admin.UserController{}.Gender)
+		adminRouters.POST("file-upload/file-upload2.html", admin.UserController{}.DoGender)
 	}
 }

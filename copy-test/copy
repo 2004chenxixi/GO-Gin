@@ -1,0 +1,90 @@
+//复习文件上传+分装
+	//POST演示*******
+	package main
+
+    import (
+    	tools "123/models"
+    	"fmt"
+    	"github.com/gin-gonic/gin"
+    	"net/http"
+    	"os"
+    	"path"
+    	"strconv"
+    )
+
+    func main() {
+    	r := gin.Default()
+    	r.LoadHTMLGlob("testGin-html/**/*")
+    	r.GET("/", func(c *gin.Context) {
+    		c.HTML(200, "default/num-One.html" ,gin.H{})
+    	})
+
+    	r.POST("/User", func(c *gin.Context) {
+
+    		Username :=c.PostForm("username")
+    		Password :=c.PostForm("password")
+    		Age:=c.PostForm("age")
+    		file ,err := c.FormFile("face")
+    		extName := path.Ext(file.Filename)
+    		allExtMap := map[string]bool{
+    			".jpg":  true,
+    			".png":  true,
+    			".gif":  true,
+    			".jpeg": true,
+    		}
+    		_, ok := allExtMap[extName]
+    		if ok != true {
+    			fmt.Println("输入的文件后缀有误")
+    			c.String(http.StatusOK, "你的输入的照片后缀有误，请从新尝试")
+    			return
+    		}
+
+    		dir := "./static/upload" + tools.GetDay()
+
+    		os.MkdirAll(dir, 0777) //就是用os.MkdirAll来创建目录,这里后面的0777为权限，要注意
+    		if err != nil {
+    			fmt.Println("创建目录有误")
+    			c.String(http.StatusOK, "创建目录失败，请从新尝试")
+    			return
+    		}
+    		fileName := strconv.FormatInt(tools.GetUnix(), 10) + extName
+    		//5.上传
+    		Dst := path.Join(dir, fileName)  //这里的意思是，将filename文件传到dir中，dir是上面自己创建到目录
+    		c.SaveUploadedFile(file, Dst) //5.上传
+
+    		c.JSON(http.StatusOK,gin.H{
+    			"gainResult": true,
+    			"username":   Username,
+    			"password":   Password,
+    			"age":        Age,
+    			"dst":        Dst,
+    		})
+
+
+    	})
+
+    	r.Run() // listen and serve on 0.0.0.0:8080
+    }
+***********************************************************************************************
+接下来是html文件内容，这个内容会随着，你文件的位置而变化，要自己该
+{{ define  "admin/user.html"}}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        {{template "public/page-headPost.html" .}}
+    </head>
+    {{/*    只要有/doAddUser2，就等于有了一个钥匙，用POS可以用下面这些*/}}
+    {{/*    引用user.html可以有输入：用户名，密码，年龄*/}}
+    {{/*    但是有action的密码，可以被POST接受，就可以把上面输入的东西给导出*/}}
+    <form action="/DoAddUser" method="post" enctype="multipart/form-data">  //enctype="multipart/form-data一定要写
+        用户名 <input type="text" name="username"/><br><br>
+        密码<input type="text" name="password"/><br><br>
+        年龄<input type="text" name="age"/><br><br>
+        照片<input type="file" name="face"/><br><br>
+        <input type="submit" value="提交">
+    </form>
+    </body>
+    </html>
+{{end}}

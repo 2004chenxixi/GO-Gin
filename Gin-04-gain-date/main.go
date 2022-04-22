@@ -1,6 +1,7 @@
 package main
 
 import (
+	review_encaps2 "123/review-encaps2"
 	"encoding/xml"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -53,22 +54,6 @@ func main() {
 			"id":  id,
 		})
 	})
-	//POST演示*******
-	r.GET("/user2", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "admin/user.html", gin.H{})
-	})
-	//获取表单post过来的数据
-	r.POST("/doAddUser", func(c *gin.Context) {
-		username := c.PostForm("username")
-		password := c.PostForm("password")
-		age := c.DefaultPostForm("age", "16未成年")
-
-		c.JSON(http.StatusOK, gin.H{
-			"username": username,
-			"password": password,
-			"age":      age,
-		})
-	})
 
 	//获取GET--传递的数据绑定到结构体
 	r.GET("/user", func(c *gin.Context) {
@@ -115,5 +100,17 @@ func main() {
 		cid := context.Param("cid")
 		context.String(http.StatusOK, "%v", cid)
 	})
+	//
+	//
+	//
+	//复习文件上传+分装
+	//POST演示*******
+
+	//获取表单post过来的数据
+	review_encaps2.GainSumGet(r)
+	review_encaps2.GainSumPost(r)
+	//被封装到两个目录下
+	//review-encapsulate/controller-testEncapsulate.go
+	//review-encaps2/controllerTestEncapsulate2.go
 	r.Run(":9090")
 }
