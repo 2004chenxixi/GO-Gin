@@ -1,0 +1,24 @@
+{{define "resultOne.html/gain-result.html"}}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<link rel="stylesheet" href="/static-file/css/style.css">
+<div class="result">
+    <head>
+        <title>HTML</title>
+    </head>
+    <body>
+    <div class="picture">
+        <p>注意这边，你一定要先传入一张照片，才能继续哦</p>
+        <p>骗照片我们是认真的</p>
+        <p>请按照流程走</p>
+    </div>
+    <h1>欢迎进入--请先输入一张美美的照片吧</h1>
+    <form action="/gain-Picture" method="post" enctype="multipart/form-data">
+        照片<input type="file" name="face"/><br><br>
+        <input type="submit" value="提交">
+    </form>
+
+    </body>
+</div>
+</html>
+{{end}}

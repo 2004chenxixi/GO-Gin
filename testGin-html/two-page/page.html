@@ -1,20 +1,23 @@
 {{define "two-page/page.html"}}
     <!DOCTYPE >
     <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <h1>欢迎来到注册页面</h1>
-    <body>
-    <p>友情提示:建议先看注册细节</p>
-    <p><em>注册细节</em><a href="http://localhost:8080/details" target="_blank">注册细节</a></p>
-    <br>
-    <form action="/link" method="post" enctype="multipart/form-data">
-        创建:账号<input type="text" name="account"/><br><br>
-        创建:密码<input type="text" name="password"/><br><br>
-        <input type="submit" value="注册">
-    </form>
-    </body>
+    <link rel="stylesheet" href="/static-file/css/style.css">
+    <div class="register">
+        <head>
+            <meta charset="UTF-8">
+            <title>Title</title>
+        </head>
+        <h1>欢迎来到注册页面</h1>
+        <body>
+        <p>友情提示:建议先看注册细节</p>
+        <p><em>注册细节</em><a href="http://localhost:8080/details" target="_blank">注册细节</a></p>
+        <br>
+        <form action="/link" method="post" enctype="multipart/form-data">
+            创建:账号<input type="text" name="account"/><br><br>
+            创建:密码<input type="text" name="password"/><br><br>
+            <input type="submit" value="注册">
+        </form>
+        </body>
+    </div>
     </html>
 {{end}}

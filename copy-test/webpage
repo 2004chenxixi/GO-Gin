@@ -10,15 +10,6 @@ import (
 	"path"
 )
 
-//testGin-html/after-picture/afterPicture.html
-//testGin_gorm/gorm.go
-//testGin-html/default/num-One.html
-//static/css/style.css
-//testGin-html/details/registerDetails.html
-//testGin-html/resultOne/gain-result.html
-//testGin-html/changePassword/changePassword.html
-//testGin-html/sign/sign-jump.html
-//testGin-html/two-page/page.html
 func Query(a string, p string) (ok bool) {
 	WebSlice := testGin_gorm.Web{}
 	//testGin_gorm.DB.Find(&WebSlice)
@@ -38,47 +29,42 @@ func exchangePassword(a string, p string) (ok bool) {
 	testGin_gorm.DB.Where("account = ?", a).Find(&WebSlice)
 	if WebSlice.Account == a && WebSlice.Password == p {
 		ok = true
-	}
-	if a == "" || p == "" || a == "NULL " || p == "NULL" {
+	} else if a == "" || p == "" {
 		ok = false
 	} else {
 		ok = false
 	}
-	fmt.Println("请输入你的账号与密码")
+	return
+}
+
+func create(a string, p string) (ok bool) {
+
 	return
 }
 
 func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("testGin-html/**/*")
-
-	r.StaticFS("/static-file", http.Dir("./static"))
-
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(200, "default/num-One.html", gin.H{})
+		//WebSlice := testGin_gorm.Web{} //这里用到了gorm，gorm.Bank这个是已经定义好的，结构体在gorm中
+		//testGin_gorm.DB.Find(&WebSlice)
+		//fmt.Println("看看答案效果=", WebSlice)
 	})
 
 	r.POST("/User", func(c *gin.Context) {
-		if c.PostForm("account") == "" || c.PostForm("password") == "" || c.PostForm("account") == "NULL" || c.PostForm("password") == "NULL" {
-			c.String(http.StatusOK, "请输入，还没输入任何东西")
-			return
-		}
 		yes := Query(c.PostForm("account"), c.PostForm("password"))
 		if yes == true {
-			fmt.Println("测试成功")
-			c.HTML(http.StatusOK, "sign/sign-jump.html", gin.H{})
-
+			fmt.Println("成功")
+			goto come
 		} else {
 			c.String(http.StatusOK, "对不起，你不是该用户")
 			fmt.Println("失败")
 			return
 		}
-	})
-
-	r.GET("/gain", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "resultOne.html/gain-result.html", gin.H{})
-	})
-	r.POST("/gain-Picture", func(c *gin.Context) {
+	come:
+		password := c.PostForm("password")
+		account := c.PostForm("account")
 		file, err := c.FormFile("face")
 		extName := path.Ext(file.Filename)
 		allExtMap := map[string]bool{
@@ -103,12 +89,12 @@ func main() {
 		fileName := tools.Day() + extName
 		Dst := path.Join(dir, fileName)
 		c.SaveUploadedFile(file, Dst)
-		fmt.Println("传入成功")
-		c.HTML(http.StatusOK, "after-picture/afterPicture.html", gin.H{})
-		//c.JSON(http.StatusOK, gin.H{
-		//	"gainResult": true,
-		//	"dst":        Dst,
-		//})
+		c.JSON(http.StatusOK, gin.H{
+			"gainResult": true,
+			"password":   password,
+			"account":    account,
+			"dst":        Dst,
+		})
 	})
 
 	r.GET("/exchange", func(c *gin.Context) {
@@ -123,11 +109,6 @@ func main() {
 		}
 		if c.PostForm("account") == "" || c.PostForm("password") == "" || c.PostForm("account") == "NULL" || c.PostForm("password") == "NULL" {
 			c.String(http.StatusOK, "请输入，还没输入任何东西")
-			return
-		}
-		if c.PostForm("account") == WebSlice.Account {
-			c.String(http.StatusOK, "该账号已经被注册")
-			fmt.Println("该账号已经被注册")
 			return
 		}
 		testGin_gorm.DB.Create(&WebSlice)
@@ -158,6 +139,7 @@ func main() {
 			c.String(http.StatusOK, "请输入，还没输入任何东西")
 			return
 		}
+
 		if change == true {
 			c.String(http.StatusOK, "修改成功")
 			testGin_gorm.DB.Save(&WebSlice)
@@ -166,7 +148,6 @@ func main() {
 			c.String(http.StatusOK, "修改失败")
 		}
 	})
-
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
 

@@ -1,0 +1,58 @@
+.title {
+    width: 30%;
+    margin: auto;
+    color: dodgerblue;
+}
+
+.middle {
+    width: 30%;
+    margin: auto;
+}
+
+.end {
+    width: 30%;
+    margin: auto;
+    border: 10px dotted #ba7235;
+    background: #ba7235;
+}
+
+.border {
+    border: 10px dotted #51862c;
+    background: #ba7235;
+}
+
+.care {
+    width: 30%;
+    margin: auto;
+
+}
+
+.result {
+    width: 30%;
+    margin: auto;
+}
+
+.password {
+    width: 30%;
+    margin: auto;
+}
+
+.sign {
+    width: 30%;
+    margin: auto;
+}
+
+.register {
+    width: 30%;
+    margin: auto;
+}
+
+.care-change {
+    background: red;
+    color: whitesmoke;
+}
+
+.picture {
+    background: red;
+    color: whitesmoke;
+}
